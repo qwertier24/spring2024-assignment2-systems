@@ -496,3 +496,15 @@ class CausalMultiHeadSelfAttention(nn.Module):
 
 def gelu(x: torch.FloatTensor):
     return x * (0.5) * (1 + torch.erf(x / math.sqrt(2)))
+
+
+class CrossEntropy(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, pred, target):
+        target = target[..., None]
+        pred -= torch.max(pred, axis=-1, keepdim=True).values
+        a = -torch.mean(torch.gather(pred, -1, target))
+        b = torch.mean(torch.log(torch.sum(torch.exp(pred), axis=-1)))
+        return a + b
