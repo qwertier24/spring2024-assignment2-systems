@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 @pytest.mark.parametrize("model_class", [ToyModel, ToyModelWithTiedWeights])
 def test_DistributedDataParallelIndividualParameters(model_class):
     world_size = 2
+    mp.log_to_stderr(logging.ERROR)
     mp.spawn(
         _test_DistributedDataParallelIndividualParameters,
         args=(world_size, model_class),
@@ -74,8 +75,12 @@ def _test_DistributedDataParallelIndividualParameters(
             or "no_grad_fixed_param" in non_parallel_param_name
         )
         if rank == 0 or is_no_grad_fixed_param:
+            if not torch.allclose(non_parallel_model_parameter, ddp_model_parameter):
+                logger.log(logging.ERROR, f"Rank {rank} has different parameters: {ddp_model_param_name}, {str(non_parallel_model_parameter)}")
             assert torch.allclose(non_parallel_model_parameter, ddp_model_parameter)
         else:
+            if torch.allclose(non_parallel_model_parameter, ddp_model_parameter):
+                logger.log(logging.ERROR, f"Rank {rank} has same parameters: {ddp_model_param_name}, {str(non_parallel_model_parameter)}, {ddp_model_parameter.requires_grad}")
             assert not torch.allclose(non_parallel_model_parameter, ddp_model_parameter)
 
     # Make sure all the ranks have the same model state

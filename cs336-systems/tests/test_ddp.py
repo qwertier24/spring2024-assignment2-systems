@@ -164,6 +164,14 @@ def _test_DistributedDataParallelCPU(
 
         # Wait for all DDP ranks to sync gradients
         ddp_bucketed_on_after_backward(ddp_model=ddp_model, optimizer=ddp_optimizer)
+        if rank == 0:
+            for non_parallel_model_parameter, ddp_model_parameter in zip(
+                non_parallel_model.parameters(), ddp_model.parameters()
+            ):
+                if non_parallel_model_parameter.requires_grad:
+                    if not torch.allclose(non_parallel_model_parameter.grad.data, ddp_model_parameter.grad.data):
+                        logger.error(f"step {i}: {str(non_parallel_model_parameter.grad.data)} \n\n {str(ddp_model_parameter.grad.data)}")
+                    assert torch.allclose(non_parallel_model_parameter.grad.data, ddp_model_parameter.grad.data)
         ddp_optimizer.step()
 
         # At this point, the non-parallel model should exactly match the parameters of the DDP model
@@ -171,6 +179,8 @@ def _test_DistributedDataParallelCPU(
             for non_parallel_model_parameter, ddp_model_parameter in zip(
                 non_parallel_model.parameters(), ddp_model.parameters()
             ):
+                if not torch.allclose(non_parallel_model_parameter, ddp_model_parameter):
+                    logger.error(f"step {i}")
                 assert torch.allclose(non_parallel_model_parameter, ddp_model_parameter)
 
         # Shuffle the data so that during the next iteration, each DDP rank sees a different set of inputs.

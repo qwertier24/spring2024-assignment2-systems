@@ -22,8 +22,12 @@ def distributed_demo(rank, world_size):
     setup(rank, world_size)
     data = torch.rand((256, args.data_size_kb)).to(args.device)
     print(f"rank {rank} data (before all-reduce): {torch.mean(data)}")
+    t1 = time.time()
     dist.all_reduce(data, async_op=False)
+    torch.cuda.synchronize()
+    t2 = time.time()
     print(f"rank {rank} data (after all-reduce): {torch.mean(data)}")
+    print(f"time {rank}: ", t2-t1)
 
 
 def main():

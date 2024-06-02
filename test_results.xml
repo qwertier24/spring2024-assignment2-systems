@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="4" failures="0" skipped="0" tests="4" time="1.520" timestamp="2024-05-26T22:52:50.851026" hostname="mlexamplev-login-login-001"><testcase classname="" name="tests.test_ddp" time="0.000"><error message="collection failure">ImportError while importing test module '/home/yukunma_google_com/spring2024-assignment2-systems/cs336-systems/tests/test_ddp.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../.conda/envs/cs336/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+cs336-systems/tests/test_ddp.py:13: in &lt;module&gt;
+    from .adapters import (
+cs336-systems/tests/adapters.py:5: in &lt;module&gt;
+    from cs336_systems import rms_norm
+cs336-systems/cs336_systems/rms_norm.py:1: in &lt;module&gt;
+    import triton
+E   ModuleNotFoundError: No module named 'triton'</error></testcase><testcase classname="" name="tests.test_ddp_individual_parameters" time="0.000"><error message="collection failure">ImportError while importing test module '/home/yukunma_google_com/spring2024-assignment2-systems/cs336-systems/tests/test_ddp_individual_parameters.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../.conda/envs/cs336/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+cs336-systems/tests/test_ddp_individual_parameters.py:13: in &lt;module&gt;
+    from .adapters import (
+cs336-systems/tests/adapters.py:5: in &lt;module&gt;
+    from cs336_systems import rms_norm
+cs336-systems/cs336_systems/rms_norm.py:1: in &lt;module&gt;
+    import triton
+E   ModuleNotFoundError: No module named 'triton'</error></testcase><testcase classname="" name="tests.test_rmsnorm" time="0.000"><error message="collection failure">ImportError while importing test module '/home/yukunma_google_com/spring2024-assignment2-systems/cs336-systems/tests/test_rmsnorm.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../.conda/envs/cs336/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+cs336-systems/tests/test_rmsnorm.py:5: in &lt;module&gt;
+    from .adapters import (
+cs336-systems/tests/adapters.py:5: in &lt;module&gt;
+    from cs336_systems import rms_norm
+cs336-systems/cs336_systems/rms_norm.py:1: in &lt;module&gt;
+    import triton
+E   ModuleNotFoundError: No module named 'triton'</error></testcase><testcase classname="" name="tests.test_sharded_optimizer" time="0.000"><error message="collection failure">ImportError while importing test module '/home/yukunma_google_com/spring2024-assignment2-systems/cs336-systems/tests/test_sharded_optimizer.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../.conda/envs/cs336/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+cs336-systems/tests/test_sharded_optimizer.py:10: in &lt;module&gt;
+    from .adapters import get_sharded_optimizer
+cs336-systems/tests/adapters.py:5: in &lt;module&gt;
+    from cs336_systems import rms_norm
+cs336-systems/cs336_systems/rms_norm.py:1: in &lt;module&gt;
+    import triton
+E   ModuleNotFoundError: No module named 'triton'</error></testcase></testsuite></testsuites>
